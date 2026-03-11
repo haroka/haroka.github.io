@@ -1307,7 +1307,7 @@
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
 
-    /* SP hero: 写真を上、テキストを下に */
+    /* SP hero: 写真を上（横長）、テキストを下に */
     .hero {
       display: flex;
       flex-direction: column;
@@ -1315,20 +1315,25 @@
     }
     .hero-photo {
       order: -1;
-      min-height: 88vw;
-      max-height: 88vw;
+      min-height: 54vw;
+      max-height: 54vw;
       overflow: hidden;
     }
-    .hero-photo img { object-position: center 38%; }
+    .hero-photo img { object-position: center 35%; }
     .hero-text {
       order: 1;
-      padding: 32px 20px 40px;
+      padding: 18px 20px 36px;
     }
-    /* SP: hero-statusとeyebrowを小さく */
-    .hero-eyebrow { margin-bottom: 16px; }
-    .hero-name-ja { margin-bottom: 20px; }
-    .hero-desc { margin-bottom: 24px; font-size: 13.5px; }
-    .hero-book-link { margin-bottom: 24px; }
+    /* SP: FVにテキスト+ボタンまで収める */
+    .hero-status { margin-bottom: 10px; }
+    .hero-eyebrow { display: none; } /* SP: eyebrowは省略 */
+    .hero-name { font-size: 38px; margin-bottom: 2px; }
+    .hero-name-ja { font-size: 12px; margin-bottom: 14px; letter-spacing: 0.2em; }
+    .hero-desc { margin-bottom: 18px; font-size: 12.5px; line-height: 1.8; }
+    .hero-book-link { display: none; } /* SP: 書籍リンクはBook欄に統合 */
+    .hero-btns { gap: 10px; }
+    .btn-fill { padding: 12px 22px; font-size: 11.5px; }
+    .btn-outline { padding: 11px 18px; font-size: 11.5px; }
 
     .container { padding: 0 20px; }
 
