@@ -74,7 +74,7 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 80vh;
+    min-height: 56vh;
     padding-top: 62px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -653,33 +653,66 @@
   }
 
   .oreilly-badge {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 20px;
-    padding: 11px 18px;
-    border: 1px solid rgba(255,255,255,0.15);
+    gap: 20px;
+    margin-top: 28px;
+    padding: 16px 22px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-left: 3px solid #e05a3a;
     text-decoration: none;
-    color: rgba(255,255,255,0.6);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s, color 0.2s;
-    line-height: 1.4;
+    color: rgba(255,255,255,0.75);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, color 0.2s;
+    line-height: 1.5;
   }
 
   .oreilly-badge:hover {
-    border-color: rgba(255,255,255,0.4);
-    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,1);
+  }
+
+  .oreilly-brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .oreilly-featured {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e05a3a;
+    font-weight: 600;
   }
 
   .oreilly-brand {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: rgba(255,255,255,0.9);
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 2px 7px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.95);
     white-space: nowrap;
+  }
+
+  .oreilly-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+
+  .oreilly-arrow {
+    margin-left: auto;
+    font-size: 16px;
+    color: rgba(255,255,255,0.4);
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .oreilly-badge:hover .oreilly-arrow {
+    transform: translateX(4px);
+    color: rgba(255,255,255,0.8);
   }
 
   .book-eyebrow {
@@ -1080,8 +1113,8 @@
     <p class="hero-name-ja">瀧本 はろか</p>
     <p class="hero-desc">
       ユーザーの声を、意思決定につなげるために。<br>
-      UXリサーチの設計から組織への浸透まで、<br>
-      企業のリサーチ活動を実践的にサポートします。
+      経営陣・部門責任者との壁打ちや課題整理から、<br>
+      リサーチ設計・組織への浸透まで、事業推進を実践的にサポートします。
     </p>
     <a href="https://www.shoeisha.co.jp/book/detail/9784798184234" target="_blank" class="hero-book-link">
       <span class="hero-book-icon">📖</span>
@@ -1490,9 +1523,12 @@
           <a href="https://www.shoeisha.co.jp/book/detail/9784798186276" target="_blank" class="btn-outline-light">翔泳社で見る →</a>
         </div>
         <a href="https://www.oreilly.com/library/view/uxrisatinohuo-kasifang-yuzanosheng-woyi-si-jue-ding-nitunagerutamenidekirukoto/9784798186290/" target="_blank" rel="noopener" class="oreilly-badge">
-          <span class="oreilly-brand">O'REILLY</span>
-          <span>Learning サブスクリプションでも読めます</span>
-          <span>→</span>
+          <div class="oreilly-brand-block">
+            <span class="oreilly-featured">Featured on</span>
+            <span class="oreilly-brand">O'REILLY</span>
+          </div>
+          <div class="oreilly-text">O'Reilly Learning サブスクリプションに収録されています</div>
+          <span class="oreilly-arrow">→</span>
         </a>
       </div>
 
