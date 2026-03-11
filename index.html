@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Haroka | UXリサーチャー・著者</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f7f4ef;
@@ -23,7 +23,7 @@
   body {
     background: var(--cream);
     color: var(--ink);
-    font-family: "Zen Maru Gothic", "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic",
+    font-family: "Noto Sans JP", "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic",
                  "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Meiryo, sans-serif;
     font-weight: 400;
     line-height: 1.85;
@@ -74,7 +74,7 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
+    min-height: 80vh;
     padding-top: 62px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -734,6 +734,38 @@
     margin-bottom: 32px;
     max-width: 500px;
   }
+
+  /* ── BOOK PREVIEW ── */
+  .book-preview-sec {
+    background: var(--white);
+    padding: 48px 0 56px;
+    border-top: 1px solid var(--border);
+  }
+
+  .book-preview-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .book-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .book-preview-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s;
+  }
+
+  .book-preview-grid img:hover { transform: scale(1.015); }
 
   /* ── BOOK MEDIA ── */
   .book-media-sec {
@@ -1464,6 +1496,19 @@
         </a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOK PREVIEW ── -->
+<section class="book-preview-sec">
+  <div class="container">
+    <p class="book-preview-label fade-up">本の内容より</p>
+    <div class="book-preview-grid fade-up">
+      <img src="https://www.shoeisha.co.jp/static/splus/3947/8424/86276_01.jpg" alt="書籍内図解①" loading="lazy">
+      <img src="https://www.shoeisha.co.jp/static/splus/3947/8425/86276_02_.jpg" alt="書籍内図解②" loading="lazy">
+      <img src="https://www.shoeisha.co.jp/static/splus/3947/8426/86276_03.jpg" alt="書籍内図解③" loading="lazy">
+      <img src="https://www.shoeisha.co.jp/static/splus/3947/8904/86276_04.jpg" alt="書籍内図解④" loading="lazy">
     </div>
   </div>
 </section>
