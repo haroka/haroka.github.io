@@ -73,6 +73,22 @@
 
   .nav-links a:hover { color: var(--ink); }
 
+  /* Nav CTA button */
+  .nav-links .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 22px;
+    background: var(--gradient);
+    color: white;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    margin-left: 8px;
+    border-radius: 2px;
+  }
+  .nav-links .nav-cta:hover { color: white; opacity: 0.84; }
+
   /* ── HERO ── */
   .hero {
     min-height: 28vh;
@@ -1114,22 +1130,261 @@
     transform: translateY(0);
   }
 
+  /* ── FAQ ── */
+  .faq-sec { background: var(--cream-light); }
+
+  .faq-list { max-width: 760px; }
+
+  .faq-item {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+  }
+
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .faq-q {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .faq-q::before {
+    content: 'Q.';
+    font-family: "DM Serif Display", serif;
+    font-size: 17px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+
+  .faq-a {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 2;
+    padding-left: 30px;
+    margin: 0;
+  }
+
+  /* Contact checklist */
+  .contact-checklist {
+    margin: 4px 0 28px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-checklist li {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .contact-checklist li::before {
+    content: '✓';
+    color: #3cb371;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── HAMBURGER MENU ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    z-index: 201;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-drawer {
+    position: fixed;
+    top: 62px; left: 0; right: 0;
+    background: rgba(247, 244, 239, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px 24px;
+    z-index: 99;
+    transform: translateY(-110%);
+    opacity: 0;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+    pointer-events: none;
+  }
+
+  .nav-drawer.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-drawer-list { list-style: none; margin-bottom: 16px; }
+
+  .nav-drawer-list li { border-bottom: 1px solid var(--border); }
+
+  .nav-drawer-list li a {
+    display: block;
+    padding: 15px 4px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-drawer-cta {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    background: var(--gradient);
+    color: white;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ── MOBILE FIXED BOTTOM CTA ── */
+  .mobile-bottom-cta {
+    display: none;
+  }
+
+  /* ── SPEAKING MORE/LESS ── */
+  .speaking-more-wrap {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .speaking-more-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .speaking-more-btn:hover {
+    background: var(--cream);
+    color: var(--ink);
+    border-color: #d0cbc2;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 0 24px; }
+    nav { padding: 0 20px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-text { padding: 60px 24px 40px; }
-    .hero-photo { min-height: 70vw; }
-    .container { padding: 0 24px; }
+    .nav-hamburger { display: flex; }
+
+    /* SP hero: 写真を上、テキストを下に */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      min-height: auto;
+    }
+    .hero-photo {
+      order: -1;
+      min-height: 88vw;
+      max-height: 88vw;
+      overflow: hidden;
+    }
+    .hero-photo img { object-position: center 38%; }
+    .hero-text {
+      order: 1;
+      padding: 32px 20px 40px;
+    }
+    /* SP: hero-statusとeyebrowを小さく */
+    .hero-eyebrow { margin-bottom: 16px; }
+    .hero-name-ja { margin-bottom: 20px; }
+    .hero-desc { margin-bottom: 24px; font-size: 13.5px; }
+    .hero-book-link { margin-bottom: 24px; }
+
+    .container { padding: 0 20px; }
+
     .services-grid,
+    .ai-grid { grid-template-columns: 1fr; gap: 14px; }
+
     .articles-grid,
-    .ai-grid,
     .video-layout,
-    .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 24px; }
+
     .book-grid { grid-template-columns: 1fr; gap: 40px; }
-    .book-cover-block { max-width: 200px; }
+    .book-cover-block { max-width: 180px; }
+    .book-preview-grid { grid-template-columns: 1fr; }
+
     footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+
+    /* Mobile body padding for fixed CTA */
+    body { padding-bottom: 78px; }
+
+    /* Mobile fixed CTA */
+    .mobile-bottom-cta {
+      display: block;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 150;
+      padding: 10px 20px max(14px, env(safe-area-inset-bottom));
+      background: rgba(247, 244, 239, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-bottom-cta.hidden { transform: translateY(110%); }
+
+    .mobile-bottom-cta a {
+      display: block;
+      text-align: center;
+      padding: 15px;
+      background: var(--gradient);
+      color: white;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Speaking more/less on mobile */
+    .speaking-more-wrap { display: block; }
+    .speaking-extra { display: none; }
+    .speaking-extra.revealed { display: block; }
+
+    /* Reduce section padding on mobile */
+    section { padding: 64px 0; }
+    .book-sec { padding: 56px 0; }
   }
 
   @media (min-width: 901px) and (max-width: 1060px) {
@@ -1147,9 +1402,23 @@
     <li><a href="#speaking">登壇・実績</a></li>
     <li><a href="#ai">AI活用</a></li>
     <li><a href="#video">動画</a></li>
-    <li><a href="#contact">お問い合わせ</a></li>
+    <li><a href="#contact" class="nav-cta">お問い合わせ →</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-toggle" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="nav-drawer">
+  <ul class="nav-drawer-list">
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#speaking">登壇・実績</a></li>
+    <li><a href="#ai">AI活用</a></li>
+    <li><a href="#video">動画</a></li>
+  </ul>
+  <a href="#contact" class="nav-drawer-cta">お問い合わせ →</a>
+</div>
 
 <!-- ── HERO ── -->
 <div class="hero">
@@ -1198,7 +1467,7 @@
         <span class="service-num">01</span>
         <div class="service-name">企業向け勉強会</div>
         <p class="service-desc">
-          UXリサーチの基礎から実践まで、貴社の課題に合わせてカスタマイズして実施します。「リサーチをどう事業に活かすか」をチーム全体で考えるきっかけをつくります。
+          「ユーザーリサーチを取り入れたい」「チームにユーザー視点が足りない」——リサーチ文化がまだない組織でも大丈夫です。貴社の課題・事業フェーズに合わせてカスタマイズし、受講後にチームが「次にやること」を持ち帰れる構成を心がけています。
         </p>
         <div class="service-price-note">内容・時間により異なります</div>
         <div class="service-tags">
@@ -1212,7 +1481,7 @@
         <span class="service-num">02</span>
         <div class="service-name">外部 UXアドバイザー</div>
         <p class="service-desc">
-          「開発チームにユーザー視点を入れたい」「リサーチをどう意思決定に活かすか整理したい」——デザイン・マーケ・開発部門の責任者向けに、外部UXパートナーとして伴走します。月次の壁打ちセッションや定期顧問を通じ、チームの方針整理や調査設計を一緒に考えます。実行はご自身のチームで、思考と設計は一緒に。
+          「リサーチ結果が報告書で終わっている」「どう意思決定につなげればいいか分からない」——社内にリサーチャーがいない組織でも対応します。月次の壁打ちや定期顧問を通じて、チームの方針整理・調査設計を一緒に考えます。実行はご自身のチームで、思考と設計は一緒に。
         </p>
         <div class="service-price-note">月次顧問契約 / スポット相談</div>
         <div class="service-tags">
@@ -1313,7 +1582,7 @@
       </a>
 
       <!-- JMRX 出版記念 2024 -->
-      <a class="article-card" href="https://jmrx121.peatix.com/" target="_blank" rel="noopener">
+      <a class="article-card speaking-extra" href="https://jmrx121.peatix.com/" target="_blank" rel="noopener">
         <img class="article-thumb" src="https://cdn.peatix.com/event/4198799/cover-v0jZvhFpTboKYWxonaFjN74Ifohul5ZW.jpeg" alt="JMRX勉強会 第121回" loading="lazy">
         <div class="article-body">
           <div class="article-meta">
@@ -1329,7 +1598,7 @@
       </a>
 
       <!-- Fukuoka Research 2025 -->
-      <a class="article-card" href="https://note.com/haroppe/n/nce7fcf24b7d7" target="_blank" rel="noopener">
+      <a class="article-card speaking-extra" href="https://note.com/haroppe/n/nce7fcf24b7d7" target="_blank" rel="noopener">
         <img class="article-thumb" src="https://assets.st-note.com/production/uploads/images/160936211/8ef7717fb2b915f16d602c741156bca8.png" alt="Fukuoka Research サムネイル">
         <div class="article-body">
           <div class="article-meta">
@@ -1345,7 +1614,7 @@
       </a>
 
       <!-- Xデザインフォーラム 2024 -->
-      <a class="article-card" href="https://peatix.com/event/4061112" target="_blank" rel="noopener">
+      <a class="article-card speaking-extra" href="https://peatix.com/event/4061112" target="_blank" rel="noopener">
         <img class="article-thumb" src="https://cdn.peatix.com/event/4061112/cover-tS2XIidydEWUZl0sRx0zl3hbeUYhRbfP.jpeg" alt="Xデザインフォーラム" loading="lazy">
         <div class="article-body">
           <div class="article-meta">
@@ -1360,6 +1629,9 @@
         </div>
       </a>
 
+    </div>
+    <div class="speaking-more-wrap">
+      <button class="speaking-more-btn" id="speaking-more-btn" data-open="false">もっと見る（残り3件）▼</button>
     </div>
 
     <!-- ── メディア掲載 ── -->
@@ -1681,6 +1953,37 @@
   </div>
 </section>
 
+<!-- ── FAQ ── -->
+<section class="faq-sec">
+  <div class="container">
+    <div class="sec-eyebrow fade-up">FAQ</div>
+    <h2 class="sec-title fade-up">よくあるご質問</h2>
+    <div class="faq-list fade-up">
+
+      <div class="faq-item">
+        <div class="faq-q">社内にリサーチャーがいなくても相談できますか？</div>
+        <p class="faq-a">はい、むしろそのような組織からのご相談が多いです。「リサーチをどこから始めればいいか分からない」「調査はしているが意思決定に活かせていない」という段階からご一緒しています。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">まずは話だけ聞いてもらうことはできますか？</div>
+        <p class="faq-a">もちろんです。「何を依頼すれば良いか分からない」という段階でも歓迎です。現状の課題をお話しいただければ、どのサービスが合うかを一緒に整理します。費用が発生するのは正式にご依頼いただいてからです。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">どのくらいの期間・頻度で関わってもらえますか？</div>
+        <p class="faq-a">勉強会は1〜2時間のスポット実施から、伴走支援は月1〜2回のセッションで数ヶ月間など、ご状況に合わせて柔軟に対応しています。まず「どんな形が合うか」を一緒に考えるところからはじめます。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">秘密保持契約（NDA）には対応していますか？</div>
+        <p class="faq-a">はい、対応しております。業務内容やご状況に応じてご相談ください。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── CONTACT ── -->
 <section id="contact" class="contact-sec">
   <div class="container">
@@ -1689,7 +1992,12 @@
       <div class="contact-info fade-up">
         <div class="sec-eyebrow">Contact</div>
         <h3>お問い合わせ</h3>
-        <p>勉強会・伴走支援のご依頼、ご相談はお気軽にどうぞ。現状の課題や背景を教えていただけると、より具体的なご提案が可能です。</p>
+        <p>サービスの詳細が決まっていなくても大丈夫です。まずは現状の課題をお聞かせください。</p>
+        <ul class="contact-checklist">
+          <li>どのサービスが合うか分からない方も歓迎</li>
+          <li>初回相談は費用なし・秘密保持対応可</li>
+          <li>通常3営業日以内にご返信します</li>
+        </ul>
         <div class="contact-detail">
           <strong>企業向け勉強会</strong><br>
           応相談（内容・時間により異なります）
@@ -1752,6 +2060,11 @@
   <span class="footer-copy">© 2024 Haroka Takimoto</span>
 </footer>
 
+<!-- Mobile fixed bottom CTA -->
+<div class="mobile-bottom-cta" id="mobile-bottom-cta">
+  <a href="#contact">お問い合わせはこちら →</a>
+</div>
+
 <script>
   // Fade-up on scroll
   const observer = new IntersectionObserver((entries) => {
@@ -1790,6 +2103,51 @@
       btn.textContent = '送信に失敗しました。もう一度お試しください。';
       btn.disabled = false;
     }
+  }
+
+  // ── Hamburger menu ──
+  const navToggle = document.getElementById('nav-toggle');
+  const navDrawer = document.getElementById('nav-drawer');
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('open');
+      navDrawer.classList.toggle('open');
+    });
+    navDrawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        navDrawer.classList.remove('open');
+      });
+    });
+  }
+
+  // ── Speaking more/less ──
+  const moreBtn = document.getElementById('speaking-more-btn');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      const isOpen = moreBtn.dataset.open === 'true';
+      document.querySelectorAll('.speaking-extra').forEach(el => {
+        el.classList.toggle('revealed', !isOpen);
+      });
+      moreBtn.dataset.open = String(!isOpen);
+      moreBtn.textContent = isOpen ? 'もっと見る（残り3件）▼' : '閉じる ▲';
+    });
+  }
+
+  // ── Mobile bottom CTA: hide when contact section is in view ──
+  const mobileCta = document.getElementById('mobile-bottom-cta');
+  const contactSec = document.getElementById('contact');
+  if (mobileCta && contactSec) {
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          mobileCta.style.transform = 'translateY(110%)';
+        } else {
+          mobileCta.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    ctaObserver.observe(contactSec);
   }
 </script>
 </body>
