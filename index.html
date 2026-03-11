@@ -1315,11 +1315,12 @@
     }
     .hero-photo {
       order: -1;
+      height: 54vw;      /* ← これがないとobject-fitが効かない */
       min-height: 54vw;
       max-height: 54vw;
       overflow: hidden;
     }
-    .hero-photo img { object-position: center 35%; }
+    .hero-photo img { object-position: center 30%; }
     .hero-text {
       order: 1;
       padding: 18px 20px 36px;
@@ -2139,21 +2140,20 @@
     });
   }
 
-  // ── Mobile bottom CTA: hide when contact section is in view ──
+  // ── Mobile bottom CTA: hide when contact section reaches view ──
   const mobileCta = document.getElementById('mobile-bottom-cta');
-  const contactSec = document.getElementById('contact');
-  if (mobileCta && contactSec) {
-    const ctaObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          mobileCta.style.transform = 'translateY(110%)';
-        } else {
-          mobileCta.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-    ctaObserver.observe(contactSec);
+  const contactSecEl = document.getElementById('contact');
+  function updateMobileCta() {
+    if (!mobileCta || !contactSecEl) return;
+    const rect = contactSecEl.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) {
+      mobileCta.style.transform = 'translateY(110%)';
+    } else {
+      mobileCta.style.transform = 'translateY(0)';
+    }
   }
+  window.addEventListener('scroll', updateMobileCta, { passive: true });
+  updateMobileCta();
 </script>
 </body>
 </html>
