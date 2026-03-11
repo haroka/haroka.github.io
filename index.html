@@ -753,6 +753,67 @@
     border: none;
   }
 
+  .video-thumb {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .video-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .video-thumb:hover img { transform: scale(1.04); }
+
+  .play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px; height: 68px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .video-thumb:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.28);
+  }
+
+  .play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 11px 0 11px 20px;
+    border-color: transparent transparent transparent #1c1c1c;
+    margin-left: 5px;
+  }
+
+  .play-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.55);
+    animation: ring-pulse 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .play-ring:nth-child(2) { animation-delay: 1.2s; }
+
+  @keyframes ring-pulse {
+    0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.75; }
+    100% { transform: translate(-50%,-50%) scale(2.4); opacity: 0; }
+  }
+
   /* ── CONTACT ── */
   .contact-sec { background: var(--white); }
 
@@ -1441,9 +1502,12 @@
         <p>話し方・思考の深さ・伝え方を、実際の動画でご確認ください。勉強会・伴走支援のスタイルも感じ取っていただけます。</p>
       </div>
       <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/lDqGP3mwOXQ"
-                allowfullscreen loading="lazy"
-                title="Haroka 登壇動画"></iframe>
+        <div class="video-thumb" id="video-thumb" onclick="playVideo()">
+          <img src="https://img.youtube.com/vi/lDqGP3mwOXQ/maxresdefault.jpg" alt="登壇動画サムネイル">
+          <div class="play-ring"></div>
+          <div class="play-ring"></div>
+          <div class="play-btn"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1526,6 +1590,12 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Video thumbnail → play
+  function playVideo() {
+    const wrap = document.getElementById('video-thumb').parentElement;
+    wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/lDqGP3mwOXQ?autoplay=1" allowfullscreen allow="autoplay; encrypted-media" title="Haroka 登壇動画"></iframe>';
+  }
 
   // Form → Formspree
   async function handleSubmit(e) {
