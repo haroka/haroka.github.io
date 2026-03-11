@@ -1473,35 +1473,37 @@
         </div>
       </div>
 
-      <div class="fade-up">
+      <form class="fade-up" id="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label class="form-label">お名前 *</label>
-          <input type="text" class="form-input" placeholder="山田 花子">
+          <input type="text" name="name" class="form-input" placeholder="山田 花子" required>
         </div>
         <div class="form-group">
           <label class="form-label">会社名</label>
-          <input type="text" class="form-input" placeholder="株式会社〇〇">
+          <input type="text" name="company" class="form-input" placeholder="株式会社〇〇">
         </div>
         <div class="form-group">
           <label class="form-label">メールアドレス *</label>
-          <input type="email" class="form-input" placeholder="example@company.com">
+          <input type="email" name="email" class="form-input" placeholder="example@company.com" required>
         </div>
         <div class="form-group">
           <label class="form-label">ご希望のサービス</label>
-          <select class="form-select">
+          <select name="service" class="form-select">
             <option value="">選択してください</option>
             <option>企業向け勉強会</option>
-            <option>リサーチ伴走支援</option>
+            <option>外部 UXアドバイザー</option>
+            <option>スタートアップ経営者 伴走支援</option>
+            <option>AI活用・業務改善</option>
             <option>その他・まずは相談したい</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label">ご相談内容</label>
-          <textarea class="form-textarea" placeholder="現状の課題や背景などを教えていただけると、より具体的なご提案が可能です。"></textarea>
+          <textarea name="message" class="form-textarea" placeholder="現状の課題や背景などを教えていただけると、より具体的なご提案が可能です。"></textarea>
         </div>
-        <button class="form-submit" onclick="handleSubmit(event)">送信する</button>
+        <button type="submit" class="form-submit">送信する</button>
         <p class="form-note">通常3営業日以内にご返信いたします</p>
-      </div>
+      </form>
 
     </div>
   </div>
@@ -1525,13 +1527,31 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Form
-  function handleSubmit(e) {
+  // Form → Formspree
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target;
-    btn.textContent = '送信しました ✓';
-    btn.style.background = '#2a5a3a';
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = '送信中...';
     btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xlgpbgbr', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = '送信しました ✓';
+        btn.style.background = '#2a5a3a';
+        form.reset();
+      } else {
+        btn.textContent = '送信に失敗しました。もう一度お試しください。';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = '送信に失敗しました。もう一度お試しください。';
+      btn.disabled = false;
+    }
   }
 </script>
 </body>
