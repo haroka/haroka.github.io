@@ -1441,7 +1441,7 @@
     <p class="hero-desc">
       ユーザーの声を、意思決定につなげるために。<br>
       経営陣・部門責任者との壁打ちや課題整理から、<br>
-      リサーチ設計・組織への浸透まで、事業推進を実践的にサポートします。
+      リサーチ設計・組織への浸透まで、一緒に考えていきます。
     </p>
     <a href="https://www.shoeisha.co.jp/book/detail/9784798184234" target="_blank" class="hero-book-link">
       <span class="hero-book-icon">📖</span>
@@ -1473,7 +1473,7 @@
         <span class="service-num">01</span>
         <div class="service-name">企業向け勉強会</div>
         <p class="service-desc">
-          「ユーザーリサーチを取り入れたい」「チームにユーザー視点が足りない」——リサーチ文化がまだない組織でも大丈夫です。貴社の課題・事業フェーズに合わせてカスタマイズし、受講後にチームが「次にやること」を持ち帰れる構成を心がけています。
+          「ユーザーリサーチを取り入れたい」「チームにユーザー視点が足りない」——リサーチ文化がまだない組織でも大丈夫です。貴社の課題・事業フェーズに合わせてカスタマイズし、受講後にチームが「これならやれそう」と感じて帰れるよう、一緒に設計します。
         </p>
         <div class="service-price-note">内容・時間により異なります</div>
         <div class="service-tags">
@@ -1487,7 +1487,7 @@
         <span class="service-num">02</span>
         <div class="service-name">外部 UXアドバイザー</div>
         <p class="service-desc">
-          「リサーチ結果が報告書で終わっている」「どう意思決定につなげればいいか分からない」——社内にリサーチャーがいない組織でも対応します。月次の壁打ちや定期顧問を通じて、チームの方針整理・調査設計を一緒に考えます。実行はご自身のチームで、思考と設計は一緒に。
+          「リサーチ結果が報告書で終わっている」「どう意思決定につなげればいいか分からない」——社内にリサーチャーがいない組織でも対応します。月次の壁打ちや定期顧問を通じて、調査設計や方針整理を一緒に考えます。実行はご自身のチームで、思考の道筋を整えるところは、一緒に。
         </p>
         <div class="service-price-note">月次顧問契約 / スポット相談</div>
         <div class="service-tags">
@@ -1945,7 +1945,7 @@
       <div class="video-text">
         <div class="sec-eyebrow">Talk</div>
         <h3>登壇動画</h3>
-        <p>話し方・思考の深さ・伝え方を、実際の動画でご確認ください。勉強会・伴走支援のスタイルも感じ取っていただけます。</p>
+        <p>「どんな人なのかな」と気になる方は、ぜひ実際の動画も見てみてください。話し方や場のつくり方も、少し伝わると思います。</p>
       </div>
       <div class="video-wrap">
         <div class="video-thumb" id="video-thumb" onclick="playVideo()">
@@ -1998,7 +1998,7 @@
       <div class="contact-info fade-up">
         <div class="sec-eyebrow">Contact</div>
         <h3>お問い合わせ</h3>
-        <p>サービスの詳細が決まっていなくても大丈夫です。まずは現状の課題をお聞かせください。</p>
+        <p>「まだ何を依頼するか決まっていない」でも大丈夫です。「こんなことで困っているんですが」くらいの気持ちで、まずは相談してみてください。</p>
         <ul class="contact-checklist">
           <li>どのサービスが合うか分からない方も歓迎</li>
           <li>初回相談は費用なし・秘密保持対応可</li>
@@ -2153,7 +2153,8 @@
     }
   }
   window.addEventListener('scroll', updateMobileCta, { passive: true });
-  updateMobileCta();
+  // ページ内の画像がすべて読み込まれた後に初期チェック（premature hideを防ぐ）
+  window.addEventListener('load', updateMobileCta);
 </script>
 </body>
 </html>
