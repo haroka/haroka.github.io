@@ -596,67 +596,119 @@
   }
 
   /* ── NOTION TEMPLATE BANNER ── */
-  .template-banner {
+  /* ── NOTION TEMPLATE CARDS ── */
+  .template-section { margin-top: 48px; }
+
+  .template-section-header { margin-bottom: 20px; }
+
+  .template-section-eyebrow {
     display: flex;
     align-items: center;
-    gap: 32px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 28px 32px;
-    margin-top: 48px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-  }
-
-  .template-banner:hover {
-    border-color: #9E78CC;
-    box-shadow: 0 8px 24px rgba(158,120,204,0.1);
-    transform: translateY(-2px);
-  }
-
-  .template-icon {
-    font-size: 36px;
-    flex-shrink: 0;
-    line-height: 1;
-  }
-
-  .template-text { flex: 1; }
-
-  .template-label {
+    gap: 10px;
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #9E78CC;
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
-  .template-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 6px;
-    line-height: 1.4;
+  .template-section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: #9E78CC;
+    flex-shrink: 0;
   }
 
-  .template-desc {
-    font-size: 12.5px;
+  .template-section-desc {
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.7;
   }
 
-  .template-arrow {
-    font-size: 18px;
-    color: var(--muted);
-    flex-shrink: 0;
-    transition: transform 0.2s, color 0.2s;
+  .template-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
-  .template-banner:hover .template-arrow {
-    transform: translateX(4px);
-    color: #9E78CC;
+  .template-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: border-color 0.22s, transform 0.25s, box-shadow 0.25s;
   }
+
+  .template-card:hover {
+    border-color: #9E78CC;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(158,120,204,0.12);
+  }
+
+  .template-card-preview {
+    overflow: hidden;
+    background: #f0edf8;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .template-card-preview img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .template-card:hover .template-card-preview img { transform: scale(1.03); }
+
+  .template-card-body {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .template-card-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #9E78CC;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .template-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .template-card-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+    margin: 0 0 16px;
+  }
+
+  .template-card-cta {
+    font-size: 11.5px;
+    color: #9E78CC;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    transition: letter-spacing 0.2s;
+  }
+
+  .template-card:hover .template-card-cta { letter-spacing: 0.1em; }
 
   /* ── BOOK ── */
   .book-sec {
@@ -1405,6 +1457,8 @@
     .speaking-extra { display: none; }
     .speaking-extra.revealed { display: block; }
 
+    .template-cards { grid-template-columns: 1fr; }
+
     /* Reduce section padding on mobile */
     section { padding: 64px 0; }
     .book-sec { padding: 56px 0; }
@@ -1848,16 +1902,40 @@
       </a>
 
     </div>
-    <!-- Notion テンプレートバナー -->
-    <a class="template-banner fade-up" href="https://www.notion.com/ja/@haroppe" target="_blank" rel="noopener">
-      <div class="template-icon">📋</div>
-      <div class="template-text">
-        <div class="template-label">Free Template</div>
-        <div class="template-title">UXリサーチ用 Notionテンプレートを無料配布中</div>
-        <p class="template-desc">UXリサーチャーとして実務で使っているテンプレートをNotionマーケットプレイスで公開しています。ぜひご活用ください。</p>
+    <!-- Notion テンプレートカード -->
+    <div class="template-section fade-up">
+      <div class="template-section-header">
+        <div class="template-section-eyebrow">Notion Templates</div>
+        <p class="template-section-desc">実務で使っているテンプレートをNotionマーケットプレイスで公開しています。</p>
       </div>
-      <span class="template-arrow">→</span>
-    </a>
+      <div class="template-cards">
+
+        <a class="template-card" href="https://www.notion.com/templates/questionnaire-smartbank-uxresearch-team" target="_blank" rel="noopener">
+          <div class="template-card-preview">
+            <img src="https://s3.us-west-2.amazonaws.com/public.notion-static.com/template/7c871d03-e1e1-4eb2-8a63-db6dbb60027d/1726447279581/desktop.jpg" alt="アンケート進行管理表" loading="lazy">
+          </div>
+          <div class="template-card-body">
+            <div class="template-card-label">Notion Marketplace</div>
+            <div class="template-card-title">アンケート進行管理表</div>
+            <p class="template-card-desc">アンケートデータを既存ユーザーに配信する際の進行管理シート。SmartBank UXリサーチチームの実務テンプレート。</p>
+            <span class="template-card-cta">テンプレートを見る →</span>
+          </div>
+        </a>
+
+        <a class="template-card" href="https://www.notion.com/templates/interview-smartbank-uxresearch-team" target="_blank" rel="noopener">
+          <div class="template-card-preview">
+            <img src="https://s3.us-west-2.amazonaws.com/public.notion-static.com/template/37f3a86e-94d0-4295-9f45-fec79a4381a9/1726447690924/desktop.jpg" alt="インタビュー進行管理表" loading="lazy">
+          </div>
+          <div class="template-card-body">
+            <div class="template-card-label">Notion Marketplace</div>
+            <div class="template-card-title">インタビュー進行管理表</div>
+            <p class="template-card-desc">インタビュー実施が決定したユーザーへの連絡・対応状況を管理するシート。SmartBank UXリサーチチームの実務テンプレート。</p>
+            <span class="template-card-cta">テンプレートを見る →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
 
     <div class="speaking-cta fade-up">
       <a href="#contact" class="btn-outline">AI活用の相談をする →</a>
