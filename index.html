@@ -420,6 +420,46 @@
     color: var(--muted);
   }
 
+  /* サービスカード内・実績参照帯 */
+  .service-card-ref {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .service-card-ref-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    margin-right: 2px;
+  }
+
+  .service-card-ref-venue {
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  .service-card-ref-link {
+    font-size: 10.5px;
+    color: var(--ink-2);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    margin-left: auto;
+    transition: color 0.2s;
+  }
+
+  .service-card-ref-link:hover { color: #E8457A; }
+
   /* ── AI SECTION ── */
   .ai-sec { background: var(--white); }
 
@@ -1553,6 +1593,13 @@
           <span class="service-tag">45分〜2時間</span>
           <span class="service-tag">カスタマイズ対応</span>
           <span class="service-tag">オンライン・対面</span>
+        </div>
+        <div class="service-card-ref">
+          <span class="service-card-ref-label">登壇実績</span>
+          <span class="service-card-ref-venue">Spectrum Tokyo</span>
+          <span class="service-card-ref-venue">KNOTS</span>
+          <span class="service-card-ref-venue">UXインテリジェンス協会</span>
+          <a href="#speaking" class="service-card-ref-link">すべて見る →</a>
         </div>
       </div>
 
