@@ -868,26 +868,26 @@
   /* ── VIDEO ── */
   .video-sec { background: var(--cream-light); }
 
-  .video-layout {
+  .video-grid {
     display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 64px;
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 0;
   }
 
-  .video-text h3 {
-    font-family: "DM Serif Display", serif;
-    font-size: clamp(20px, 2.2vw, 28px);
-    color: var(--ink);
-    margin-bottom: 16px;
-    margin-top: 12px;
-    line-height: 1.3;
-  }
-
-  .video-text p {
-    font-size: 13.5px;
+  .video-card-label {
+    font-size: 11px;
     color: var(--muted);
-    line-height: 2;
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .video-card-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 4px;
+    line-height: 1.6;
   }
 
   .video-wrap {
@@ -1194,6 +1194,26 @@
     margin-top: 1px;
   }
 
+  /* ── NEW BADGE ── */
+  .card-new {
+    position: relative;
+  }
+
+  .card-new::before {
+    content: 'NEW';
+    position: absolute;
+    top: 10px; right: 10px;
+    z-index: 10;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 3px 8px;
+    background: var(--gradient);
+    color: white;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
   /* ── HAMBURGER MENU ── */
   .nav-hamburger {
     display: none;
@@ -1339,6 +1359,7 @@
 
     .articles-grid,
     .video-layout,
+    .video-grid,
     .contact-layout { grid-template-columns: 1fr; gap: 24px; }
 
     .book-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1747,7 +1768,7 @@
     <div class="ai-grid fade-up">
 
       <!-- AI-0 -->
-      <a class="article-card" href="https://note.com/haroppe/n/n099f43eae119" target="_blank" rel="noopener">
+      <a class="article-card card-new" href="https://note.com/haroppe/n/n099f43eae119" target="_blank" rel="noopener">
         <img class="article-thumb" src="https://assets.st-note.com/production/uploads/images/259140285/6bc1736c202333a4c64ee006b62e63dc.png" alt="横断職種の文脈不足をClaudeで埋める" loading="lazy">
         <div class="article-body">
           <div class="article-meta">
@@ -1955,20 +1976,38 @@
 <!-- ── VIDEO ── -->
 <section id="video" class="video-sec">
   <div class="container">
-    <div class="video-layout fade-up">
-      <div class="video-text">
-        <div class="sec-eyebrow">Talk</div>
-        <h3>登壇動画</h3>
-        <p>「どんな人なのかな」と気になる方は、ぜひ実際の動画も見てみてください。話し方や場のつくり方も、少し伝わると思います。</p>
-      </div>
-      <div class="video-wrap">
-        <div class="video-thumb" id="video-thumb" onclick="playVideo()">
-          <img src="https://img.youtube.com/vi/lDqGP3mwOXQ/maxresdefault.jpg" alt="登壇動画サムネイル">
-          <div class="play-ring"></div>
-          <div class="play-ring"></div>
-          <div class="play-btn"></div>
+    <div class="sec-header fade-up" style="margin-bottom: 40px;">
+      <div class="sec-eyebrow">Talk</div>
+      <h2 class="sec-title">登壇動画</h2>
+      <p class="sec-lead" style="margin-top: -28px;">「どんな人なのかな」と気になる方は、ぜひ実際の動画も見てみてください。話し方や場のつくり方も、少し伝わると思います。</p>
+    </div>
+    <div class="video-grid fade-up">
+
+      <div class="video-card card-new">
+        <div class="video-wrap">
+          <div class="video-thumb" id="video-thumb-1" onclick="playVideo('video-thumb-1','yLCJHmKeYwE',12943)">
+            <img src="https://img.youtube.com/vi/yLCJHmKeYwE/maxresdefault.jpg" alt="11時間耐久 ポッドキャスト公開収録 in SHIBUYA QWS" loading="lazy">
+            <div class="play-ring"></div>
+            <div class="play-ring"></div>
+            <div class="play-btn"></div>
+          </div>
         </div>
+        <p class="video-card-label">2026.03 · Dan Presents in SHIBUYA QWS</p>
+        <p class="video-card-title">11時間耐久 ポッドキャスト公開収録〜面白がる力の限界実験〜</p>
       </div>
+
+      <div class="video-card">
+        <div class="video-wrap">
+          <div class="video-thumb" id="video-thumb-2" onclick="playVideo('video-thumb-2','lDqGP3mwOXQ')">
+            <img src="https://img.youtube.com/vi/lDqGP3mwOXQ/maxresdefault.jpg" alt="登壇動画" loading="lazy">
+            <div class="play-ring"></div>
+            <div class="play-ring"></div>
+            <div class="play-btn"></div>
+          </div>
+        </div>
+        <p class="video-card-label">登壇動画</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2098,9 +2137,12 @@
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
   // Video thumbnail → play
-  function playVideo() {
-    const wrap = document.getElementById('video-thumb').parentElement;
-    wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/lDqGP3mwOXQ?autoplay=1" allowfullscreen allow="autoplay; encrypted-media" title="Haroka 登壇動画"></iframe>';
+  function playVideo(thumbId, videoId, startTime) {
+    const wrap = document.getElementById(thumbId).parentElement;
+    const src = startTime
+      ? `https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1`
+      : `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    wrap.innerHTML = `<iframe src="${src}" allowfullscreen allow="autoplay; encrypted-media" title="Haroka 登壇動画"></iframe>`;
   }
 
   // Form → Formspree
