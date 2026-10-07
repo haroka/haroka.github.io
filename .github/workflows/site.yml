@@ -50,7 +50,7 @@ jobs:
         if: steps.changes.outputs.deploy == 'true'
         run: |
           mkdir _site
-          cp index.html haroka_service.html haroka.webp haroka-1200.jpg haroka.jpg tus-building.jpg _site/
+          cp index.html haroka.webp haroka-1200.jpg haroka.jpg tus-building.jpg _site/
           cp -R assets _site/assets
           git rev-parse HEAD > _site/source-commit.txt
       - uses: actions/upload-pages-artifact@v3

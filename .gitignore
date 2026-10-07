@@ -1,3 +1,6 @@
 .DS_Store
 .claude/
 haroka_service.html
+
+__pycache__/
+_site/
