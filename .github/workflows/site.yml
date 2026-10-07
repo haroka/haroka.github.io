@@ -1,0 +1,72 @@
+name: Sync note and deploy Pages
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 23 * * *' # Every morning 08:00 JST; GitHub may delay runs.
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: haroka-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      deploy: ${{ steps.changes.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check parser and preservation
+        run: python3 -m unittest discover -s tests
+      - name: Fetch note (keep previous successful data on failure)
+        run: python3 scripts/update_note.py --allow-stale
+      - name: Commit only article changes
+        id: changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if ! git diff --quiet -- index.html assets/note-latest.json; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- index.html assets/note-latest.json
+            git commit -m 'Update latest note articles'
+            git push origin HEAD:main
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" != 'schedule' ]; then
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'deploy=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Prepare static artifact
+        if: steps.changes.outputs.deploy == 'true'
+        run: |
+          mkdir _site
+          cp index.html haroka_service.html haroka.webp haroka-1200.jpg haroka.jpg tus-building.jpg _site/
+          cp -R assets _site/assets
+          git rev-parse HEAD > _site/source-commit.txt
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.changes.outputs.deploy == 'true'
+        with:
+          path: _site
+  deploy:
+    needs: build
+    if: needs.build.outputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
