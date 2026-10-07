@@ -1,0 +1,10 @@
+{
+  "include_urls": [
+    "https://note.com/haroppe/n/nb0d8cc9369a3"
+  ],
+  "exclude_urls": [
+    "https://note.com/haroppe/n/nec4f8dc41cb6",
+    "https://note.com/haroppe/n/n099e5403c480",
+    "https://note.com/haroppe/n/ne1e75ee865c4"
+  ]
+}

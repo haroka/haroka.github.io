@@ -46,31 +46,34 @@ def parse_feed(raw):
         articles[url] = {'title': title, 'url': url, 'published': dt.astimezone(timezone.utc).isoformat(), 'date': dt.strftime('%Y.%m.%d'), 'image': image}
     if not articles:
         raise ValueError('Empty RSS; preserving previous successful data')
-    return sorted(articles.values(), key=lambda a: a['published'], reverse=True)[:6]
+    return sorted(articles.values(), key=lambda a: a['published'], reverse=True)
 
 
-def render(articles):
+def render(articles, kind="latest"):
     cards = []
-    for a in articles:
+    for index, a in enumerate(articles):
         esc = lambda s: html.escape(s, quote=True)
         image = f'<img class="article-thumb" src="{esc(a["image"])}" alt="" loading="lazy">' if a['image'] else ''
-        cards.append(f'''      <a class="article-card" href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">
+        cards.append(f'''      <a class="article-card{' card-new' if kind == 'ai' and index == 0 else ''}" href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">
         {image}
         <div class="article-body">
-          <div class="article-meta"><span class="article-tag">note</span><span class="article-date">{esc(a['date'])}</span></div>
+          <div class="article-meta"><span class="article-tag">{'AI活用' if kind == 'ai' else 'note'}</span><span class="article-date">{esc(a['date'])}</span></div>
           <div class="article-title">{esc(a['title'])}</div>
           <div class="article-footer"><span class="article-venue">note</span><span class="article-arrow">→</span></div>
         </div>
       </a>''')
-    return '\n    <div class="cat-divider fade-up"><span class="cat-label">最近のnote</span></div>\n    <div class="articles-grid fade-up">\n' + '\n'.join(cards) + '\n    </div>\n    '
+    heading = '' if kind == 'ai' else '\n    <div class="cat-divider fade-up"><span class="cat-label">最近のnote</span></div>\n'
+    grid = 'ai-grid' if kind == 'ai' else 'articles-grid'
+    return heading + f'    <div class="{grid} fade-up">\n' + '\n'.join(cards) + '\n    </div>\n    '
 
 
-def replace_block(page, articles):
-    if page.count(START) != 1 or page.count(END) != 1:
+def replace_block(page, articles, kind='latest'):
+    start, end = (START, END) if kind == 'latest' else ('<!-- NOTE-AI:START -->', '<!-- NOTE-AI:END -->')
+    if page.count(start) != 1 or page.count(end) != 1:
         raise ValueError('Exactly one generated block is required')
-    before, rest = page.split(START)
-    _, after = rest.split(END)
-    return before + START + render(articles) + END + after
+    before, rest = page.split(start)
+    _, after = rest.split(end)
+    return before + start + render(articles, kind) + end + after
 
 
 def atomic_write(path, text):
@@ -81,14 +84,36 @@ def atomic_write(path, text):
     os.replace(temp, path)
 
 
+
+AI_TITLE = re.compile(r'(?<![A-Za-z])AI(?![A-Za-z])|Claude|Codex|ChatGPT|n8n|AlwaysWhisper|Skill.*(?:description|先祖返り|エージェント|運用)', re.I)
+
+
+def select_ai(feed, previous, curation):
+    include = set(curation.get('include_urls', []))
+    exclude = set(curation.get('exclude_urls', []))
+    articles = {a['url']: a for a in previous if a['url'] not in exclude}
+    for a in feed:
+        if a['url'] in exclude:
+            articles.pop(a['url'], None)
+        elif a['url'] in include or AI_TITLE.search(a['title']):
+            articles[a['url']] = a
+    return sorted(articles.values(), key=lambda a: a['published'], reverse=True)[:6]
+
+
 def update(root, raw):
-    articles = parse_feed(raw)
+    feed = parse_feed(raw)
+    articles = feed[:6]
+    cache = root / 'assets/note-ai.json'
+    previous = json.loads(cache.read_text(encoding='utf-8')) if cache.exists() else []
+    config = root / 'assets/ai-curation.json'
+    curation = json.loads(config.read_text(encoding='utf-8')) if config.exists() else {}
+    ai = select_ai(feed, previous, curation)
     page_path = root / 'index.html'
     page = page_path.read_text(encoding='utf-8')
-    updated = replace_block(page, articles)
+    updated = replace_block(replace_block(page, articles), ai, "ai")
     data = json.dumps(articles, ensure_ascii=False, indent=2) + '\n'
     changed = False
-    for path, text in [(page_path, updated), (root / 'assets/note-latest.json', data)]:
+    for path, text in [(page_path, updated), (root / 'assets/note-latest.json', data), (cache, json.dumps(ai, ensure_ascii=False, indent=2) + '\n')]:
         if not path.exists() or path.read_text(encoding='utf-8') != text:
             atomic_write(path, text)
             changed = True
@@ -115,7 +140,9 @@ def main():
         if args.allow_stale and cache.exists():
             saved = json.loads(cache.read_text(encoding='utf-8'))
             page = (ROOT / 'index.html').read_text(encoding='utf-8')
-            if saved and replace_block(page, saved) == page:
+            ai_cache = ROOT / 'assets/note-ai.json'
+            ai = json.loads(ai_cache.read_text(encoding='utf-8')) if ai_cache.exists() else None
+            if saved and ai is not None and replace_block(replace_block(page, saved), ai, 'ai') == page:
                 return
         raise SystemExit(1)
 
